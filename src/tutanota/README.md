@@ -8,3 +8,9 @@ The check for the URL format and the existence check shall be triggered as the u
 
 We are looking forward to see how you approach and solve this task. We don't think it should take more than 2 or 3 hours.
 ```
+
+## Solution
+
+This is what I have created in 3 hours.
+
+[https://alejandroakbal.github.io/Job-Interviews/src/tutanota/](https://alejandroakbal.github.io/Job-Interviews/src/tutanota/)
