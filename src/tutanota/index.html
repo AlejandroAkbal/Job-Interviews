@@ -33,4 +33,135 @@
 
 </main>
 
+<script>
+	'use strict'
+
+	const URL_FORM_SELECTOR = 'url-form'
+	const URL_INPUT_SELECTOR = 'url-input'
+	const URL_INPUT_MESSAGE_SELECTOR = 'url-input-message'
+
+	function isUrlValid(url) {
+		try {
+			new URL(url)
+
+			return true
+
+		} catch (error) {
+			console.error(error)
+
+			return false
+		}
+	}
+
+	function resetUrlErrorMessages() {
+		setUrlMessage(undefined, null, true)
+	}
+
+	/**
+	 * Fake API call
+	 * @param url
+	 * @returns {Promise<{
+	 *     exists: boolean,
+	 *     type: string|null
+	 * }>}
+	 */
+	function checkUrlInApi(url) {
+
+		const isApiRequestSuccessful = Math.random() >= 0.5
+
+		return new Promise((resolve, reject) => {
+
+			setTimeout(() => {
+
+				if (isApiRequestSuccessful) {
+					const isFileOrDirectory = Math.random() >= 0.5
+
+					// Fake response
+					resolve({
+						'exists': true,
+						'type': isFileOrDirectory ? 'file' : 'directory'
+					})
+
+				} else {
+					// Fake response
+					resolve({
+						'exists': false,
+						'type': null
+					})
+				}
+			}, 1000)
+		})
+	}
+
+	function setUrlMessage(message = 'Example message', successful = true, hidden = false) {
+
+		switch (hidden) {
+			case true:
+				document.getElementById(URL_INPUT_MESSAGE_SELECTOR).classList.add('invisible')
+				break
+
+			case false:
+				document.getElementById(URL_INPUT_MESSAGE_SELECTOR).classList.remove('invisible')
+				break
+		}
+
+		document.getElementById(URL_INPUT_MESSAGE_SELECTOR).textContent = message
+
+		switch (successful) {
+			case true:
+				document.getElementById(URL_INPUT_MESSAGE_SELECTOR).classList.add('text-green-600')
+				document.getElementById(URL_INPUT_MESSAGE_SELECTOR).classList.remove('text-red-600')
+				break
+
+			case false:
+				document.getElementById(URL_INPUT_MESSAGE_SELECTOR).classList.add('text-red-600')
+				document.getElementById(URL_INPUT_MESSAGE_SELECTOR).classList.remove('text-green-600')
+				break
+		}
+	}
+
+	async function onUrlInput() {
+
+		resetUrlErrorMessages()
+
+		const URL = document.getElementById(URL_INPUT_SELECTOR).value.trim()
+
+		const IS_THE_URL_VALID = isUrlValid(URL)
+
+		if (IS_THE_URL_VALID === false) {
+			setUrlMessage('The URL is not valid.', false, false)
+
+			return
+		}
+
+		const API_DATA = await checkUrlInApi(URL)
+
+		switch (API_DATA.exists) {
+			case true:
+				setUrlMessage(`The URL exists. It is a ${ API_DATA.type }`, true, false)
+				break
+
+			case false:
+				setUrlMessage(`The URL does not exist.`, false, false)
+				break
+		}
+	}
+
+	function onUrlFormSubmit(event) {
+		event.preventDefault()
+
+		onUrlInput()
+	}
+
+	document.addEventListener('DOMContentLoaded', function () {
+
+		document.getElementById(URL_FORM_SELECTOR)
+			.addEventListener('submit', onUrlFormSubmit)
+
+		document.getElementById(URL_INPUT_SELECTOR)
+			.addEventListener('input', onUrlInput)
+
+	})
+</script>
+</body>
 </html>
