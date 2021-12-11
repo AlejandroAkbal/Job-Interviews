@@ -41,10 +41,6 @@
 	const URL_INPUT_SELECTOR = 'url-input'
 	const URL_INPUT_MESSAGE_SELECTOR = 'url-input-message'
 
-	function resetUrlErrorMessages() {
-		setUrlMessage(undefined, null, true)
-	}
-
 	function setUrlMessage(message = 'Example message', successful = true, hidden = false) {
 
 		switch (hidden) {
