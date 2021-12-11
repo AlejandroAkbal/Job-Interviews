@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <title>Tutanota task</title>
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/tailwindcss-jit-cdn@1.3.0"></script>
+</head>
+<body>
+<main class="h-screen grid place-items-center">
+
+    <form id="url-form">
+
+        <label class="block text-sm font-medium text-gray-700" for="url-input">
+            Does the URL exist?
+        </label>
+
+        <div class="mt-1 rounded-md shadow-sm">
+
+            <input aria-describedby="url-input-message"
+                   class="block w-full border-gray-300 focus:outline-none focus:ring-lightblue-500 focus:border-lightblue-500 sm:text-sm rounded-md"
+                   id="url-input"
+                   name="url-input" placeholder="https://www.example.com" type="url">
+        </div>
+
+        <p class="mt-2 text-sm invisible" id="url-input-message">
+            Example message.
+        </p>
+    </form>
+
+</main>
+
+</html>
