@@ -135,7 +135,7 @@
 	}
 
 	// Has to be global so all the calls are to the same object
-	const throttledCheckUrlExistence = window._.throttle(checkUrlExistence, 1000)
+	const debouncedCheckUrlExistence = window._.debounce(checkUrlExistence, 1000)
 
 	function onUrlFormSubmit(event) {
 		event.preventDefault()
@@ -150,13 +150,13 @@
 		const IS_THE_URL_VALID = isUrlValid(URL)
 
 		if (IS_THE_URL_VALID === false) {
-			throttledCheckUrlExistence.cancel()
+			debouncedCheckUrlExistence.cancel()
 
 			setUrlMessage('The URL is not valid.', false, false)
 			return
 		}
 
-		throttledCheckUrlExistence(URL)
+		debouncedCheckUrlExistence(URL)
 	}
 
 	document.addEventListener('DOMContentLoaded', function () {
