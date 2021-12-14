@@ -145,6 +145,9 @@
 
 	function onUrlInput() {
 
+		// Reset the message
+		setUrlMessage(undefined, undefined, true)
+
 		const URL = document.getElementById(URL_INPUT_SELECTOR).value.trim()
 
 		const IS_THE_URL_VALID = isUrlValid(URL)
