@@ -135,7 +135,7 @@
 	}
 
 	// Has to be global so all the calls are to the same object
-	const debouncedCheckUrlExistence = window._.debounce(checkUrlExistence, 1000)
+	const debouncedCheckUrlExistence = window._.debounce(checkUrlExistence, 350)
 
 	function onUrlFormSubmit(event) {
 		event.preventDefault()
