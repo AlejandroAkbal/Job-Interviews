@@ -121,15 +121,15 @@
 
 		switch (API_DATA.exists) {
 			case true:
-				setUrlMessage(`The URL exists. It is a ${ API_DATA.type }`, true, false)
+				setUrlMessage(`[API] The URL exists. It is a ${ API_DATA.type }`, true, false)
 				break
 
 			case false:
-				setUrlMessage(`The URL does not exist.`, false, false)
+				setUrlMessage(`[API] The URL does not exist.`, false, false)
 				break
 
 			default:
-				setUrlMessage('Something went wrong.', false, false)
+				setUrlMessage('[API] Something went wrong.', false, false)
 		}
 
 	}
