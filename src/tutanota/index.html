@@ -41,7 +41,14 @@
 	const URL_INPUT_SELECTOR = 'url-input'
 	const URL_INPUT_MESSAGE_SELECTOR = 'url-input-message'
 
+	let isWaitingForApi = false
+
 	function setUrlMessage(message = 'Example message', successful = true, hidden = false) {
+
+		if (isWaitingForApi) {
+			console.debug('API is busy, skipping message')
+			return
+		}
 
 		switch (hidden) {
 			case true:
@@ -117,7 +124,13 @@
 
 	async function checkUrlExistence(URL) {
 
+		isWaitingForApi = true
+
 		const API_DATA = await checkUrlExistenceInApi(URL)
+
+		isWaitingForApi = false
+
+		console.debug('(async) Checked URL existence: ', URL, API_DATA)
 
 		switch (API_DATA.exists) {
 			case true:
@@ -144,6 +157,7 @@
 	}
 
 	function onUrlInput() {
+		console.debug('Triggered onUrlInput')
 
 		// Reset the message
 		setUrlMessage(undefined, undefined, true)
