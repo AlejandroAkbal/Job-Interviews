@@ -41,14 +41,9 @@
 	const URL_INPUT_SELECTOR = 'url-input'
 	const URL_INPUT_MESSAGE_SELECTOR = 'url-input-message'
 
-	let isWaitingForApi = false
+	let globalLastTimeThereWasInput = null
 
 	function setUrlMessage(message = 'Example message', successful = true, hidden = false) {
-
-		if (isWaitingForApi) {
-			console.debug('API is busy, skipping message')
-			return
-		}
 
 		switch (hidden) {
 			case true:
@@ -122,15 +117,16 @@
 		})
 	}
 
-	async function checkUrlExistence(URL) {
-
-		isWaitingForApi = true
+	async function checkUrlExistence(URL, lastTimeThereWasInput) {
 
 		const API_DATA = await checkUrlExistenceInApi(URL)
 
-		isWaitingForApi = false
-
 		console.debug('(async) Checked URL existence: ', URL, API_DATA)
+
+		if (lastTimeThereWasInput !== globalLastTimeThereWasInput) {
+			console.debug('There is a newer input, aborting...')
+			return
+		}
 
 		switch (API_DATA.exists) {
 			case true:
@@ -162,6 +158,10 @@
 	function onUrlInput() {
 		console.debug('Triggered onUrlInput')
 
+		const LAST_TIME_THERE_WAS_INPUT = Date.now()
+
+		globalLastTimeThereWasInput = LAST_TIME_THERE_WAS_INPUT
+
 		// Reset the message
 		setUrlMessage(undefined, undefined, true)
 
@@ -176,7 +176,7 @@
 			return
 		}
 
-		debouncedCheckUrlExistence(URL)
+		debouncedCheckUrlExistence(URL, LAST_TIME_THERE_WAS_INPUT)
 	}
 
 	document.addEventListener('DOMContentLoaded', function () {
