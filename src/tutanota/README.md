@@ -15,3 +15,18 @@ This is what I have created in 3 hours.
 
 [https://alejandroakbal.github.io/Job-Interviews/src/tutanota/task_1.html](https://alejandroakbal.github.io/Job-Interviews/src/tutanota/task_1.html)
 
+## Programming task 2
+
+```text
+We now would like you to solve another task to get a better impression of your programming skills: Please write a small application in JavaScript that allows detecting spam emails by similarity of the email body text.
+The background to this is that spammers usually send similar emails to a large number of recipients, but to avoid being detected as spammers they often change small parts of that email when sent to different recipients.
+Let's assume we want to detect Tutanota users sending out spam and we can read their emails. Your task is to write a routine that gets a set of email body texts and assigns a spam probability to each of them depending on the similarity to the other emails in the set. The more similar it is to the other emails, the more likely it is a spam email.
+
+We are looking forward to your solution!
+```
+
+### Solution
+
+This is what I have created in ? hours.
+
+[https://alejandroakbal.github.io/Job-Interviews/src/tutanota/task_2.html](https://alejandroakbal.github.io/Job-Interviews/src/tutanota/task_2.html)
