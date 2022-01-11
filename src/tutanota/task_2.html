@@ -79,6 +79,19 @@
 
 	// Compare the email to a list of known spam emails and calculate a probability of it being spam.
 	function calculateSpamProbability(email) {
+		const SPAM_EMAIL_LIST = getSpamEmails()
+
+		const SPAM_EMAIL_SIMILARITY_LIST = SPAM_EMAIL_LIST.map((spamEmail) => {
+			const SIMILARITY_PERCENT = window.org_turbocommons.StringUtils.compareSimilarityPercent(email, spamEmail)
+
+			return SIMILARITY_PERCENT
+		})
+
+		const SPAM_PROBABILITY = SPAM_EMAIL_SIMILARITY_LIST.reduce((previousValue, currentValue) => previousValue + currentValue, 0) / SPAM_EMAIL_SIMILARITY_LIST.length
+
+		const SPAM_PROBABILITY_ROUNDED = Math.round(SPAM_PROBABILITY)
+
+		return SPAM_PROBABILITY_ROUNDED
 	}
 
 	// Show the probability to the user
